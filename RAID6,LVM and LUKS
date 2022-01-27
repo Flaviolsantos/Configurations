@@ -4,7 +4,7 @@ For this Configurations there are some possible ways of doing it for example:
 -> RAID --> LUKS --> LVM --> ext4(or xfs) (in case you want to use only 1 password)(line 7-69)
 -> RAID --> LVM --> LUKS --> ext4(or xfs) (in case you need to combine some Raids with LVM)(line 73-116)
 
-RAID --> LUKS --> LVM --> ext469
+RAID --> LUKS --> LVM --> ext4
 in AWS
 - its needed a machine (ubuntu or Redhat)
 - 4+ Volumes (since its Raid 6 its required atleast 4 disks/volumes)
@@ -41,7 +41,8 @@ LVM
 -> vgcreate vg0 /dev/mapper/md0_crypt ( here its made the volume group)
 -> lvcreate -n lv0 -l +100%FREE vg0   ( and here the logical volume)
 
--> mkfs.ext4 /dev/mapper/md0_crypt (you only can do this if cryptsetup luksOpen /dev/md0 md0_crypt worked)
+-> mkfs.ext4 /dev/vg0/lv0 (you only can do this if cryptsetup luksOpen /dev/md0 md0_crypt worked)
+
 After the Raid + Lucks + Lvm are done do:
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  -> [WARNING: if in the next 2 lines is > insted of >> you will need to start all again so be carefull]
